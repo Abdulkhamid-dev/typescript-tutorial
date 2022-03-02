@@ -1,15 +1,11 @@
+import axios from "axios";
+const BasicUrl = "https://jsonplaceholder.typicode.com/users/1";
+
 // TYPE 1-modul
 // class Khamid {}
 // const first = new Khamid ()
 
-// ANNOTATIONS 2-modul
 
-let age: number = 19;
-let myName: string = "Abdulkhamid";
-let isMarried: boolean = false;
-let not: null = null;
-let undf: undefined = undefined;
-let timeCreated: Date = new Date();
 //  ANY
 let unknown: any = false;
 unknown = "Me";
@@ -81,3 +77,30 @@ function printId(id: number | string) {
 }
 printId(63);
 printId("sixty-three");
+
+interface User {
+  name: string;
+  email: string;
+  id: number;
+}
+
+const logger = (id: number, name: string, email: string) => {
+  console.log(`
+  My id: ${id}
+  My name is ${name}
+  My email: ${email}
+  `);
+  
+}
+
+const getUsers = () => {
+  axios.get(BasicUrl).then((res) => {
+    const user = res.data as User;
+    const id = user.id;
+    const name = user.name;
+    const email = user.email;
+    logger(id, name, email);
+  });
+};
+
+getUsers();
